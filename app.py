@@ -121,11 +121,19 @@ def train_or_load_models(_featured_df):
     X_train, X_test, y_train, y_test = prepare_train_test_split(_featured_df, test_ratio=0.20)
     baseline = HeuristicBaselineModel().fit(_featured_df.loc[X_train.index])
 
+    ml_model = None
     if os.path.exists(model_path):
-        ml_model = MLDemandModel.load(model_path)
-    else:
-        ml_model = MLDemandModel(model_type="gradient_boosting", n_estimators=80, max_depth=4).fit(X_train, y_train)
-        ml_model.save(model_path)
+        try:
+            ml_model = MLDemandModel.load(model_path)
+        except Exception:
+            ml_model = None
+
+    if ml_model is None:
+        ml_model = MLDemandModel(model_type="gradient_boosting", n_estimators=60, max_depth=4).fit(X_train, y_train)
+        try:
+            ml_model.save(model_path)
+        except Exception:
+            pass
 
     eval_results = evaluate_models(baseline, ml_model, X_test, y_test, _featured_df)
     return baseline, ml_model, X_train, X_test, y_train, y_test, eval_results
