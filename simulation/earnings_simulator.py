@@ -241,7 +241,7 @@ class ShiftSimulationEngine:
                 "Trips Completed": round(float(avg_trips), 1),
                 "Gross Revenue ($)": round(float(avg_gross), 2),
                 "Surge Bonus ($)": round(float(avg_surge), 2),
-                "Fuel/Expense ($)": round(float(avg_expense), 2),
+                "Fuel Expense ($)": round(float(avg_expense), 2),
                 "Net Earnings ($)": round(float(avg_net), 2),
                 "Net Hourly Rate ($/hr)": round(float(avg_hourly), 2),
                 "Deadhead (km)": round(float(avg_deadhead), 1),

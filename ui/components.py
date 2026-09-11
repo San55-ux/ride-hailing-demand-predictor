@@ -32,12 +32,13 @@ def create_strategy_comparison_chart(comparison_df: pd.DataFrame) -> go.Figure:
         textposition="auto",
     ))
 
+    fuel_col = "Fuel Expense ($)" if "Fuel Expense ($)" in comparison_df.columns else "Fuel/Expense ($)"
     fig.add_trace(go.Bar(
         name="Fuel Expense ($)",
         x=comparison_df["Strategy"],
-        y=comparison_df["Fuel Expense ($)"],
+        y=comparison_df[fuel_col],
         marker_color="#FF4C61",
-        text=[f"-${v:.0f}" for v in comparison_df["Fuel Expense ($)"]],
+        text=[f"-${v:.0f}" for v in comparison_df[fuel_col]],
         textposition="auto",
     ))
 
